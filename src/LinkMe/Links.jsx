@@ -1,6 +1,6 @@
 const Links = () => {
     return ( 
-        <div class="px-4 py-5 border-b rounded-t sm:px-6">
+        <div class="px-4 py-5 border-b rounded-t sm:px-6 my-8">
             <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
                 <ul class="divide-y divide-gray-200">
                     <li>

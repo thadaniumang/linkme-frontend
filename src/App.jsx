@@ -1,41 +1,29 @@
-import { useState } from 'react'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import RecoilRoot from 'recoil'
+
+import Lists from './LinkMe/Lists.jsx'
+import Links from './LinkMe/Links.jsx'
+import CreateLink from './LinkMe/CreateLink.jsx'
+import Register from './Authentication/Register.jsx'
+import Login from './Authentication/Login.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Hello Vite + React!</p>
-        <p>
-          <button className="px-2 py-3 text-yellow-300 bg-gray-600" type="button" onClick={() => setCount((count) => count + 2)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <RecoilRoot>
+        <Routes>
+          <Route path="/" element={<Lists />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/create" element={<CreateLink />} />
+          <Route path="/:username/:list" element={<Links />} />
+        </Routes>
+      </RecoilRoot>
+    </BrowserRouter>
   )
 }
 
