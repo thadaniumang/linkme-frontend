@@ -13,14 +13,18 @@ const localStorageEffect = (key) => ({ setSelf, onSet }) => {
 
 };
 
-export const userData = atom({
-    key: "userData",
-    default: {},
-    effects_UNSTABLE: [localStorageEffect("userData")],
+export const user = atom({
+    key: "user",
+    default: null,
+    effects_UNSTABLE: [localStorageEffect("user")],
 });
 
-export const isLoggedIn = atom({
-    key: "isLoggedIn",
-    default: false,
-    effects_UNSTABLE: [localStorageEffect("isLoggedIn")],
-});
+export const links = atom({
+    key: "links",
+    default: []
+})
+
+export const lists = atom({
+    key: "lists",
+    default: []
+})
