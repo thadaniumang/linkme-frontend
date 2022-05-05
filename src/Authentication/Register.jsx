@@ -94,7 +94,7 @@ const Register = () => {
     };
 
     return (
-        <div className="mx-auto my-8 px-2 sm:px-32 md:px-48 lg:px-64 xl:px-96">
+        <div className="mx-auto my-4 px-2 sm:px-32 md:px-48 lg:px-64 xl:px-96">
             <div className="flex flex-col px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
                 <div className="self-center mb-2 text-xl font-light text-gray-800 sm:text-2xl dark:text-white">
                     Create a new account

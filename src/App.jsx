@@ -12,6 +12,7 @@ import Links from './LinkMe/Links.jsx'
 import CreateLink from './LinkMe/CreateLink.jsx'
 import Register from './Authentication/Register.jsx'
 import Login from './Authentication/Login.jsx'
+import Error404 from "./Error404";
 
 function App() {
 
@@ -25,7 +26,6 @@ function App() {
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Navigate to="/login" replace />} />
           </>
         ) : (  
           <>
@@ -35,6 +35,7 @@ function App() {
         )
       }
       <Route path="/:username/:list_id" element={<Links />} />
+      <Route path="*" element={<Error404 />} />
     </Routes>
   )
 }
