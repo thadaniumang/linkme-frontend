@@ -9,10 +9,6 @@ const Login = () => {
     const navigate = useNavigate();
     const [error, setError] = useState(false)
 
-    const [message, setMessage] = useState(
-        "Invalid Login Credentials! Please Try Again"
-    );
-
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -57,15 +53,6 @@ const Login = () => {
 
     return (
         <div className="flex justify-center my-4">
-            {
-                error && 
-                (
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                        <strong class="font-bold">Invalid Credentials!</strong>
-                        <span class="block sm:inline">Please Login Again</span>
-                    </div>
-                )
-            }
             <div className="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
                 <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
                     Login To Your Account
@@ -106,6 +93,15 @@ const Login = () => {
                                 Login
                             </button>
                         </div>
+                         {
+                            error && 
+                            (
+                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Invalid Credentials!</strong>
+                                    <span class="block sm:inline">Please Login Again</span>
+                                </div>
+                            )
+                        }
                     </form>
                 </div>
                 <div className="flex items-center justify-center mt-6">
