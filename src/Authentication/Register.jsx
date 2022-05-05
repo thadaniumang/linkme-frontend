@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { user } from "../atoms";
 import axiosInstance from "../axios";
@@ -9,7 +9,7 @@ const Register = () => {
     const loggedInUser = useRecoilValue(user);
 
     const setUser = useSetRecoilState(user);
-    
+
     const navigate = useNavigate();
 
     const [nameError, setNameError] = useState(false);
