@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import axiosInstance from "../axios";
 import { lists, user } from "../atoms";
@@ -9,6 +9,7 @@ const Lists = () => {
 
     const [linkslist, setLinksList] = useRecoilState(lists);
     const userData = useRecoilValue(user);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axiosInstance.get("links/get_lists").then((res) => {
@@ -25,12 +26,42 @@ const Lists = () => {
         });
     }, []);
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const data = new FormData(event.currentTarget);
+
+        const formData = {
+            title: data.get("title").trim(),
+        };
+
+        axiosInstance
+            .post(`links/create_list`, {
+                title: formData.title,
+            })
+            .then((res) => {
+                navigate(0);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    
+    };
+
     return (                
-        <div className="container mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-5/12 xl:w-4/12 my-8">
-            <div className="px-4 py-5 sm:px-6 w-full border dark:bg-gray-800 bg-white shadow mb-2 rounded-md">
+        <div className="container mx-auto w-full md:w-2/3 lg:w-7/12 xl:w-6/12 my-4">
+            <div className="flex justify-between px-4 py-5 sm:px-6 w-full border dark:bg-gray-800 bg-white shadow mb-2 rounded-md">
                 <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
                     Your Lists
                 </h3>
+                <form onSubmit={handleSubmit}>
+                    <div className="flex mb-2">
+                        <input type="text" id="title" className="rounded mr-3 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="title" placeholder="Title" />
+                        <button type="submit" className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg ">
+                            New List
+                        </button>
+                    </div>
+                </form>
             </div>
             <ul>
                 { 
@@ -59,6 +90,9 @@ const Lists = () => {
                     )
                 }
                
+                <Link to="/create" className="inline-block py-2 px-4 bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                    Create New Link
+                </Link>
             </ul>
         </div>
 
