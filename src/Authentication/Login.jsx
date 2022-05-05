@@ -28,26 +28,24 @@ const Login = () => {
                 password: formData.password,
             })
             .then((res) => {
-                console.log(res);
-                console.log(res.data);
 
                 localStorage.setItem(
                     "token",
                     res.data.token
                 );
 
-                axiosInstance.defaults.headers["Authorization"] =
-                    "Token " + localStorage.getItem("token");
+                axiosInstance.defaults.headers["Authorization"] = "Token " + localStorage.getItem("token");
 
-                setUser(res.data.user);
+                setUser({
+                    "user": res.data.user,
+                    "profile": res.data.profile
+                });
 
                 navigate("/");
             })
             .catch((err) => {
                 console.log(err);
-                if (
-                    err.response.status === 401
-                ) {
+                if (err.response.status === 401) {
                     console.log("Incorrect Credentials")
                 }
             });

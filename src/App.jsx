@@ -1,5 +1,4 @@
 import {
-  BrowserRouter,
   Routes,
   Route,
   Navigate,
@@ -32,10 +31,10 @@ function App() {
           <>
             <Route path="/" element={<Lists />} />
             <Route path="/create" element={<CreateLink />} />
-            <Route path="/:username/:list" element={<Links />} />
           </>
         )
       }
+      <Route path="/:username/:list_id" element={<Links />} />
     </Routes>
   )
 }

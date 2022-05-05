@@ -39,8 +39,6 @@ const Register = () => {
             }
         }
 
-        console.log(formData)
-
         let submit = true;
 
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -70,13 +68,24 @@ const Register = () => {
         }
 
         if (submit) {
-            console.log(formData);
             axiosInstance
                 .post(`auth/auth/register`, formData)
                 .then((res) => {
                     console.log(res);
                     console.log(res.data);
-                    return <Navigate to="/login" replace />;
+                    localStorage.setItem(
+                        "token",
+                        res.data.token
+                    );
+
+                    axiosInstance.defaults.headers["Authorization"] = "Token " + localStorage.getItem("token");
+
+                    setUser({
+                        "user": res.data.user,
+                        "profile": res.data.profile
+                    });
+
+                    navigate("/");
                 })
                 .catch((err) => {
                     console.log(err);
