@@ -33,7 +33,7 @@ const Links = () => {
     }, []);
 
     return ( 
-        <div className=" mx-auto w-full sm:w-2/3 md:w-1/2 lg:w-5/12 xl:w-4/12 px-4 py-5 border-b rounded-t sm:px-6 my-4">
+        <div className="container mx-auto w-10/12 sm:w-2/3 md:w-1/2 lg:w-5/12 xl:w-4/12 px-4 py-5 border-b rounded-t sm:px-6 my-4">
             <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
                 <div className="text-center px-4 py-5 sm:px-6 w-full border dark:bg-gray-800 bg-white shadow mb-2 rounded-md">
                     <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
@@ -47,18 +47,11 @@ const Links = () => {
                     {
                         allLinks.length > 0 ? allLinks.map(link => (
                             <li>
-                                <a className="block hover:bg-gray-50 dark:hover:bg-gray-900">
-                                    <div className="px-4 py-4 sm:px-6">
-                                        <div className="flex items-center justify-between">
-                                            <p className="text-md text-gray-700 dark:text-white md:truncate">
-                                                {link.title}
-                                            </p>
-                                            <div className="ml-2 flex-shrink-0 flex">
-                                                <a href={link.url} target="_blank" className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    Go To
-                                                </a>
-                                            </div>
-                                        </div>
+                                <a className="block hover:bg-gray-50 dark:hover:bg-gray-900" href={link.url} target="_blank">
+                                    <div className="px-4 py-4 sm:px-6 text-center">
+                                        <p className="text-md text-gray-700 dark:text-white md:truncate">
+                                            {link.title}
+                                        </p>
                                     </div>
                                 </a>
                             </li>

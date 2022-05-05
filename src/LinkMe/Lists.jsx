@@ -7,6 +7,7 @@ import { lists, user } from "../atoms";
 
 const Lists = () => {
 
+    const [loggedInUser, setLoggedInUser] = useRecoilState(user);
     const [linkslist, setLinksList] = useRecoilState(lists);
     const userData = useRecoilValue(user);
     const navigate = useNavigate();
@@ -48,17 +49,29 @@ const Lists = () => {
     
     };
 
+    const handleLogout = event => {
+        setLoggedInUser(null);
+        localStorage.clear();
+        axiosInstance.defaults.headers["Authorization"] = "";
+
+        axiosInstance
+            .post(`auth/auth/logout`)
+            .then((res) => {
+                navigate('/login');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
     return (                
-        <div className="container mx-auto w-full md:w-2/3 lg:w-7/12 xl:w-6/12 my-4">
-            <div className="flex justify-between px-4 py-5 sm:px-6 w-full border dark:bg-gray-800 bg-white shadow mb-2 rounded-md">
-                <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
-                    Your Lists
-                </h3>
+        <div className="container mx-auto w-10/12 md:w-2/3 lg:w-7/12 xl:w-6/12 my-4">
+            <div className="flex justify-center px-4 py-5 sm:px-6 w-full border dark:bg-gray-800 bg-white shadow mb-2 rounded-md">
                 <form onSubmit={handleSubmit}>
-                    <div className="flex mb-2">
-                        <input type="text" id="title" className="rounded mr-3 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="title" placeholder="Title" />
-                        <button type="submit" className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg ">
-                            New List
+                    <div className="md:flex mb-2">
+                        <input type="text" id="title" className="rounded w-7/12 mr-3 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="title" placeholder="New List Title" />
+                        <button type="submit" className="w-4/12 py-2 px-4 flex-1 bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg ">
+                            Add
                         </button>
                     </div>
                 </form>
@@ -94,8 +107,18 @@ const Lists = () => {
                     Create New Link
                 </Link>
             </ul>
+             <div className="relative mt-6">
+                <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-300">
+                    </div>
+                </div>
+                <div className="relative flex justify-center text-sm leading-5">
+                    <button onClick={handleLogout} className="px-2 text-gray-500 bg-white border-b-2 border-opacity-0 hover:border-opacity-100 border-purple-600">
+                        Logout
+                    </button>
+                </div>
+            </div>
         </div>
-
     );
 }
  
