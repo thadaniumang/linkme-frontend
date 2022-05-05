@@ -8,6 +8,8 @@ import axiosInstance from "../axios";
 const Register = () => {
     const loggedInUser = useRecoilValue(user);
 
+    const setUser = useSetRecoilState(user);
+    
     const navigate = useNavigate();
 
     const [nameError, setNameError] = useState(false);
