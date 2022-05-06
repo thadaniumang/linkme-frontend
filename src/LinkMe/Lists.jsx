@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Link, useNavigate } from "react-router-dom";
 
 import axiosInstance from "../axios";
 import { lists, user } from "../atoms";
+
 
 const Lists = () => {
 
@@ -64,6 +65,19 @@ const Lists = () => {
             });
     }
 
+    const handleDelete = (list_id, list_title) => {
+        if (loggedInUser && confirm("Are you sure you want to Delete '" + list_title + "'. You cannot reverse this action!") == true) {
+            axiosInstance
+                .delete("links/delete_list/" + list_id)
+                .then((res) => {
+                    navigate(0);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    };
+
     return (                
         <div className="container mx-auto w-10/12 md:w-2/3 lg:w-7/12 xl:w-6/12 my-4">
             <div className="flex justify-center px-4 py-5 sm:px-6 w-full border dark:bg-gray-800 bg-white shadow mb-2 rounded-md">
@@ -80,7 +94,7 @@ const Lists = () => {
                 { 
                     linkslist ? (
                         linkslist.map(list_head => (
-                            <li className="border-gray-400 mb-2" key={list_head.id}>
+                            <li className="flex justify-between border-gray-400 mb-2" key={list_head.id}>
                                 <Link to={"/" + userData.user.username + "/" + list_head.id} className="inline-block w-full">
                                     <div className="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
                                         <div className="flex-1 pl-1 md:mr-16">
@@ -88,14 +102,10 @@ const Lists = () => {
                                                 {list_head.title}
                                             </div>
                                         </div>
-                                        <button className="w-24 text-right flex justify-end">
-                                            <svg width="12" fill="currentColor" height="12" className="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">
-                                                </path>
-                                            </svg>
-                                        </button>
                                     </div>
                                 </Link>
+                                <button onClick={() => handleDelete(list_head.id, list_head.title)} className="block text-red-600 bg-white border-2 hover:border-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" data-modal-toggle="popup-modal">   Delete
+                                </button>
                             </li>
                         ))
                     ) : (

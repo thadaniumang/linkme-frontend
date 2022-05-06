@@ -12,7 +12,7 @@ import Links from './LinkMe/Links.jsx'
 import CreateLink from './LinkMe/CreateLink.jsx'
 import Register from './Authentication/Register.jsx'
 import Login from './Authentication/Login.jsx'
-import Error404 from "./Error404";
+import Error404 from "./Utilities/Error404.jsx"
 
 function App() {
 
