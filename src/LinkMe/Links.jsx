@@ -13,35 +13,35 @@ const Links = () => {
     const [profile, setProfile] = useState({})
     const params = useParams()
     const navigate = useNavigate();
-    const [username, setUsername] = useState("")
 
     useEffect(() => {
         
         axiosInstance.get("links/get_creator/" + params.list_id).then((res) => {
-            const data = res.data[0];
-            setUsername(data.username)
+            if (res.data.username == params.username) {
+                axiosInstance.get("auth/api/profile?username=" + params.username).then((res) => {
+                    const data = res.data[0];
+                    setProfile(data);
+                });
+
+                axiosInstance.get("links/get_links/" + params.list_id).then((res) => {
+                    const data = res.data;
+                    let tempList = []
+
+                    for (let key in data) {
+                        tempList.push({
+                            "id": data[key]['id'],
+                            "title": data[key]['title'],
+                            "url": data[key]['url']
+                        })
+                    }
+                    setAllLinks(tempList)
+                });
+        }
+        }).catch(err => {
+            console.log(err)
         })
         
-        if (username == params.username) {
-            axiosInstance.get("auth/api/profile?username=" + params.username).then((res) => {
-                const data = res.data[0];
-                setProfile(data);
-            });
-
-            axiosInstance.get("links/get_links/" + params.list_id).then((res) => {
-                const data = res.data;
-                let tempList = []
-
-                for (let key in data) {
-                    tempList.push({
-                        "id": data[key]['id'],
-                        "title": data[key]['title'],
-                        "url": data[key]['url']
-                    })
-                }
-                setAllLinks(tempList)
-            });
-        }
+        
     }, []);
 
     const handleDelete = (link_id, link_title) => {
