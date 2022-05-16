@@ -2,7 +2,7 @@ import { useState } from "react";
 import { user } from "../atoms";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../axios";
-import { useSetRecoilState, useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 const Login = () => {
     const setUser = useSetRecoilState(user);
@@ -41,8 +41,7 @@ const Login = () => {
                 navigate("/");
             })
             .catch((err) => {
-                console.log(err);
-                if (err.response.status === 401) {
+                if (err.response.status === 400) {
                     console.log("Incorrect Credentials")
                 }
                 setError(true);

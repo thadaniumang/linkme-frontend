@@ -27,6 +27,11 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error);
       }
 
+      if (error && error.response && error.response.status === 400) {
+        localStorage.clear();
+        return Promise.reject(error);
+      }
+
   }
 );
 
