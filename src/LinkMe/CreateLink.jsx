@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 import axiosInstance from "../axios";
 import { lists } from "../atoms";
