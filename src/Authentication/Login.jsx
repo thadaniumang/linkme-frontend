@@ -25,7 +25,6 @@ const Login = () => {
                 password: formData.password,
             })
             .then((res) => {
-
                 localStorage.setItem(
                     "token",
                     res.data.token

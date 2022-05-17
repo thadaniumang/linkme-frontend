@@ -58,9 +58,8 @@ const Links = () => {
         }
     };
 
-
     return ( 
-        <div className="container mx-auto w-10/12 sm:w-2/3 md:w-1/2 lg:w-5/12 xl:w-4/12 px-4 py-5 border-b rounded-t sm:px-6 my-4">
+        <div className="container mx-auto w-10/12 sm:w-2/3 lg:w-1/2 px-4 py-5 border-b rounded-t sm:px-6 my-4">
             <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
                 <div className="text-center px-4 py-5 sm:px-6 w-full border dark:bg-gray-800 bg-white shadow mb-2 rounded-md">
                     <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
@@ -73,7 +72,7 @@ const Links = () => {
                 <ul className="divide-y divide-gray-200">
                     {
                         allLinks.length > 0 ? allLinks.map(link => (
-                            <li className="flex justify-between">
+                            <li className="flex justify-between" key={link.id}>
                                 <a className="inline-block w-full hover:bg-gray-50 dark:hover:bg-gray-900" href={link.url} target="_blank">
                                     <div className="px-4 py-4 sm:px-6 text-center">
                                         <p className="text-md text-gray-700 dark:text-white md:truncate">
@@ -82,8 +81,8 @@ const Links = () => {
                                     </div>
                                 </a>
                                 {   
-                                    loggedInUser && 
-                                    <button onClick={() => handleDelete(link.id, link.title)} className="block text-red-600 bg-white border-2 hover:border-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" data-modal-toggle="popup-modal">   Delete
+                                    loggedInUser && loggedInUser.user.username == params.username &&
+                                    <button onClick={() => handleDelete(link.id, link.title)} className="block text-red-600 bg-white border-2 hover:border-red-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Delete
                                     </button>
                                 }
                             </li>

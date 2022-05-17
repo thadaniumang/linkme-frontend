@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,9 @@ const CreateLink = () => {
 
     const [linkslist, setLinksList] = useRecoilState(lists);
     const navigate = useNavigate();
+
+    const [titleError, setTitleError] = useState(false);
+    const [linkError, setLinkError] = useState(false);
 
     useEffect(() => {
         axiosInstance.get("links/get_lists").then((res) => {
@@ -37,14 +40,33 @@ const CreateLink = () => {
             link: data.get("link").trim()
         };
 
-        axiosInstance
-            .post(`links/create_link`, formData)
-            .then((res) => {
-                navigate("/");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        setLinkError(false);
+        setTitleError(false);
+
+        let submit = true;
+
+        const linkRegex = /^[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/gi
+
+        if (formData.title.length < 3 || formData.title.length > 50) {
+            setTitleError(true);
+            submit = false;
+        }
+
+        if (!linkRegex.test(formData.link)) {
+            setLinkError(true);
+            submit = false;
+        }
+
+        if (submit) {
+            axiosInstance
+                .post(`links/create_link`, formData)
+                .then((res) => {
+                    navigate("/");
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     
     };
 
@@ -77,12 +99,28 @@ const CreateLink = () => {
                         </div>
                         <div className="w-full">
                             <div className=" relative ">
-                                <input type="text" id="title" name="title" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Title"/>
+                                <input type="text" id="title" name="title" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Title" />
+                                {
+                                    titleError && 
+                                    (
+                                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                            Title should be atleast 3 characters and at most 50 characters long
+                                        </span>
+                                    )
+                                }
                             </div>
                         </div>
                         <div className="w-full">
                             <div className=" relative ">
                                 <input type="text" id="link" name="link" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="URL"/>
+                                {
+                                    linkError && 
+                                    (
+                                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                                            Please enter valid URL
+                                        </span>
+                                    )
+                                }
                             </div>
                         </div>
                         <div>
