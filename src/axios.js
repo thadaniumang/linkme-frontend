@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseURL = "https://linkme-backend-production.up.railway.app/"
-const baseURL = "http://localhost:8000/"
+const baseURL = "https://linkme-backend-production.up.railway.app/"
+// const baseURL = "http://localhost:8000/"
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
