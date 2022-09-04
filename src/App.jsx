@@ -13,6 +13,7 @@ import CreateLink from './LinkMe/CreateLink.jsx'
 import Register from './Authentication/Register.jsx'
 import Login from './Authentication/Login.jsx'
 import Error404 from "./Utilities/Error404.jsx"
+import ChangePassword from "./Authentication/ChangePassword";
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
           <>
             <Route path="/" element={<Lists />} />
             <Route path="/create" element={<CreateLink />} />
+            <Route path="/change-password" element={<ChangePassword />} />
           </>
         )
       }

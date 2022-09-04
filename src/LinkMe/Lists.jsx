@@ -117,12 +117,16 @@ const Lists = () => {
                     Create New Link
                 </Link>
             </ul>
-             <div className="relative mt-6">
+            <div className="relative mt-6">
                 <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-300">
                     </div>
                 </div>
                 <div className="relative flex justify-center text-sm leading-5">
+                    <Link to="/change-password" className="px-2 text-gray-500 bg-white border-b-2 border-opacity-0 hover:border-opacity-100 border-purple-600">
+                        Change Password
+                    </Link>
+                    /
                     <button onClick={handleLogout} className="px-2 text-gray-500 bg-white border-b-2 border-opacity-0 hover:border-opacity-100 border-purple-600">
                         Logout
                     </button>
